@@ -1,6 +1,6 @@
 # Secret credentials — NEVER commit this
 .env
-
+*.sql
 # Build output (Netlify/Vercel rebuild this automatically)
 dist/
 

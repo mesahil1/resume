@@ -151,6 +151,15 @@ section{padding:6rem 6vw;position:relative;z-index:2}
 .blog-empty p{color:var(--tx3);font-size:1rem;margin-bottom:.5rem}.blog-empty span{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
 .blog-loading{text-align:center;padding:4rem 2rem;font-family:var(--mono);color:var(--tx3);font-size:.9rem}
 .blog-loading .spinner{display:inline-block;width:24px;height:24px;border:2px solid var(--bdr);border-top-color:var(--ac);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem}
+.report-card-body{padding:2rem 2rem 1.2rem;flex:1;display:flex;flex-direction:column}
+.report-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);color:var(--ac);font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.5px;margin-bottom:1rem}
+.report-card p.blog-excerpt{margin-bottom:1.2rem}
+.report-meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;color:var(--tx3);margin-top:auto}
+.report-size{padding:2px 8px;border:1px solid var(--bdr)}
+.report-download-link{font-family:var(--mono);font-size:.76rem;color:var(--ac);display:flex;align-items:center;gap:6px;text-decoration:none;transition:gap .3s}
+.report-card:hover .report-download-link{gap:10px}
+input[type=file]{width:100%;padding:10px;background:var(--bg2);border:1px solid var(--bdr);color:var(--tx2);font-family:var(--mono);font-size:.82rem}
+input[type=file]::file-selector-button{font-family:var(--mono);font-size:.74rem;padding:6px 12px;margin-right:10px;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--ac);cursor:pointer}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* ARTICLE FULL PAGE */
@@ -251,12 +260,13 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
     <li><a href="#education">education</a></li>
     <li><a href="#certs">certs</a></li>
     <li><a href="#blog">blog</a></li>
+    <li><a href="#reports">reports</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-nav" id="mobileNav">
-  <a href="#about">about</a><a href="#skills">skills</a><a href="#experience">experience</a><a href="#education">education</a><a href="#certs">certs</a><a href="#blog">blog</a><a href="#contact">contact</a>
+  <a href="#about">about</a><a href="#skills">skills</a><a href="#experience">experience</a><a href="#education">education</a><a href="#certs">certs</a><a href="#blog">blog</a><a href="#reports">reports</a><a href="#contact">contact</a>
 </div>
 
 <!-- HERO -->
@@ -400,6 +410,30 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
   <div class="blog-empty" id="blogEmpty" style="display:none"><p>No articles yet.</p><span>Click "+ New Article" to publish your first post.</span></div>
 </section>
 
+<!-- REPORTS / PAPERS -->
+<section id="reports">
+  <div class="blog-header-row reveal"><div class="section-header"><p class="section-label">08 // Reports</p><h2 class="section-title">Reports & Papers</h2></div><button class="btn-add-post" onclick="openReportModal()">+ Upload PDF</button></div>
+  <div id="reportSbBanner"></div>
+  <div class="blog-loading" id="reportLoading" style="display:none"><div class="spinner"></div><br>Loading reports...</div>
+  <div class="blog-grid" id="reportGrid"></div>
+  <div class="blog-empty" id="reportEmpty" style="display:none"><p>No reports yet.</p><span>Click "+ Upload PDF" to add your thesis, papers, or reports.</span></div>
+</section>
+
+<!-- REPORT UPLOAD MODAL -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal">
+    <div class="modal-header"><h2 id="reportModalTitle">Upload Report</h2><button class="modal-close" onclick="closeReportModal()">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="reportEditId" value="">
+      <div class="form-group"><label>Title</label><input type="text" id="reportTitle" placeholder="e.g. A Multi-Dimensional Quality Evaluation Framework for Open-Source IDS/IPS Tools"></div>
+      <div class="form-group"><label>Category</label><select id="reportCategory"><option>Thesis</option><option>Research Paper</option><option>Whitepaper</option><option>Case Study</option><option>Report</option><option>Other</option></select></div>
+      <div class="form-group"><label>Description</label><textarea id="reportDesc" placeholder="Short summary of the report/paper..." style="min-height:120px"></textarea></div>
+      <div class="form-group"><label>PDF File</label><input type="file" id="reportFile" accept="application/pdf"><small id="reportFileHint">Max 25MB. Uploading a new file replaces the existing one when editing.</small></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeReportModal()">Cancel</button><button class="btn-publish" id="reportPublishBtn" onclick="publishReport()">Upload</button></div>
+  </div>
+</div>
+
 <!-- ARTICLE FULL PAGE -->
 <div class="article-page" id="articlePage">
   <div class="article-progress" id="articleProgress"></div>
@@ -455,7 +489,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-grid">
-    <div class="reveal"><div class="section-header"><p class="section-label">08 // Contact</p><h2 class="section-title">Let's Connect</h2></div><p style="color:var(--tx2);font-size:1.02rem;max-width:450px">I'm always open to discussing DevOps practices, cloud architecture, cybersecurity, or new opportunities. Feel free to reach out.</p></div>
+    <div class="reveal"><div class="section-header"><p class="section-label">09 // Contact</p><h2 class="section-title">Let's Connect</h2></div><p style="color:var(--tx2);font-size:1.02rem;max-width:450px">I'm always open to discussing DevOps practices, cloud architecture, cybersecurity, or new opportunities. Feel free to reach out.</p></div>
     <div class="contact-links reveal">
       <a href="mailto:me.sahilansari1@gmail.com" class="contact-link"><span class="link-icon">@</span>me.sahilansari1@gmail.com<span class="arrow">→</span></a>
       <a href="https://www.linkedin.com/in/sahil-ansari1/" target="_blank" rel="noopener" class="contact-link"><span class="link-icon">in</span>linkedin.com/in/sahil-ansari1<span class="arrow">→</span></a>
@@ -510,12 +544,14 @@ function initSB(){
   const b=document.getElementById('sbBanner');
   if(SUPABASE_URL==='YOUR_SUPABASE_URL'){
     b.innerHTML='<div class="sb-banner offline">⚠ Supabase not configured — using local storage. Set SUPABASE_URL and SUPABASE_ANON_KEY to enable cloud persistence.</div>';
+    initReportSB();loadReports();
     return;
   }
   // Wait for async script
   if(typeof window.supabase==='undefined'){setTimeout(initSB,200);return}
   try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);sbOk=true;b.innerHTML='<div class="sb-banner">⚡ Connected to Supabase — articles persist in the cloud.</div>'}
   catch(e){b.innerHTML='<div class="sb-banner offline">⚠ Supabase connection failed — using local storage.</div>'}
+  initReportSB();loadReports();
 }
 
 async function loadPosts(){
@@ -585,7 +621,7 @@ async function publishPost(){
 function editP(id){openModal(id)}
 async function delP(id){if(!confirm('Delete this article?'))return;try{await deleteP(id);toast('Deleted');buildFilters();renderPosts()}catch(e){toast('Failed to delete',true)}}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('articlePage').classList.contains('open'))closeArticle();else closeModal()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('articlePage').classList.contains('open'))closeArticle();else if(document.getElementById('reportModal').classList.contains('open'))closeReportModal();else closeModal()}});
 document.getElementById('blogModal').addEventListener('click',e=>{if(e.target===document.getElementById('blogModal'))closeModal()});
 
 function seedPosts(){return[
@@ -593,6 +629,93 @@ function seedPosts(){return[
 {id:'s2',title:'Lessons Learned: Managing RKE2 Kubernetes Clusters at Scale',category:'Kubernetes',tags:['RKE2','Rancher','Longhorn','Helm','ArgoCD'],content:"Managing Kubernetes in production teaches you things no tutorial ever will. At Khalti, we ran RKE2 clusters managed through Rancher, with Longhorn providing persistent storage.\n\n## Storage Is Harder Than Compute\n\nLonghorn is excellent for distributed storage, but you need to understand replica placement, backup schedules, and what happens during node failures.\n\n> Always test your storage failover before you need it. A Friday evening is not the time to discover your PVCs don't survive a node drain.\n\n## Helm Charts Need Structure\n\nWhen I started, our Helm charts were a mess of hardcoded values. I restructured them with:\n- Environment-specific values files\n- Proper template helpers for repeated patterns\n- Semantic versioning tied to our release process\n\nThis alone reduced deployment issues by roughly **60%**.\n\n## GitOps Changed Everything\n\nMoving from imperative `kubectl apply` commands to declarative ArgoCD sync transformed our workflow:\n- Every change is **version-controlled**\n- Every deployment is **reviewable**\n- Every rollback is a `git revert` away\n\n## Monitoring Is Not Optional\n\nOur Prometheus + Grafana stack with custom dashboards gave us the visibility to catch issues before users noticed them. Key metrics we tracked:\n- Request latency (p50, p95, p99)\n- Error rates by service\n- Pod restart counts\n- Resource utilization vs. requests\n- Longhorn volume health",created_at:'2024-06-20T10:00:00Z'},
 {id:'s3',title:"From DevOps to CyberSecurity: Why I Chose to Pursue a Master's Degree",category:'Career',tags:['CyberSecurity','Aalborg University','Career','Education'],content:"After three years of building and maintaining infrastructure, I made a decision that surprised some colleagues: I left my position as a DevOps Engineer at Khalti to pursue a Master's in CyberSecurity at Aalborg University Copenhagen.\n\n## Why the Shift?\n\nWorking in DevOps, I constantly encountered security challenges — misconfigured IAM policies, container vulnerabilities, network exposure, secrets management. I realized that while I could implement security best practices, I wanted to **deeply understand the principles** behind them.\n\n## What I've Learned So Far\n\n### Semester 1: Vehicular Network Security\nMy first project on Vehicular Network Cyber Attacks opened my eyes to how different the security research world is from operations.\n\n### Semester 2: NIDS in IoT\nDesigning detection systems for resource-constrained devices forced me to think about efficiency in ways that cloud infrastructure rarely demands.\n\n### Semester 3: Privacy vs. Security\nPerhaps the most eye-opening project: **Balancing Rights to Privacy with Protection of Society**. It forced me to think beyond technical solutions and consider the ethical, legal, and societal implications.\n\n## The Bridge Between DevOps and Security\n\nI believe the combination of hands-on DevOps experience and formal cybersecurity education creates a powerful skillset. Infrastructure security isn't just about tools — it's about understanding threats, designing defenses, and making informed trade-offs.\n\nThe DevSecOps movement isn't just a buzzword. It's the recognition that security must be embedded into every stage of the software delivery lifecycle.",created_at:'2024-12-10T10:00:00Z'}
 ]}
+
+// ===== REPORTS / PAPERS (PDF uploads via Supabase Storage) =====
+const REPORTS_BUCKET='reports';
+let reports=[];
+
+function fmtBytes(b){if(!b)return'';const u=['B','KB','MB','GB'];let i=0;while(b>=1024&&i<u.length-1){b/=1024;i++}return b.toFixed(b<10&&i>0?1:0)+' '+u[i]}
+
+function initReportSB(){
+  const b=document.getElementById('reportSbBanner');
+  if(!sbOk){b.innerHTML='<div class="sb-banner offline">⚠ Supabase not configured — PDF upload requires cloud storage and is disabled in local mode.</div>';return}
+  b.innerHTML='<div class="sb-banner">⚡ Connected to Supabase — reports are stored in the cloud.</div>';
+}
+
+async function loadReports(){
+  document.getElementById('reportLoading').style.display='block';
+  document.getElementById('reportGrid').style.display='none';
+  if(sbOk){
+    try{const{data,error}=await sb.from('reports').select('*').order('created_at',{ascending:false});if(error)throw error;reports=data||[]}
+    catch(e){console.error(e);toast('Failed to load reports',true);reports=[]}
+  } else reports=[];
+  document.getElementById('reportLoading').style.display='none';
+  document.getElementById('reportGrid').style.display='';
+  renderReports();
+}
+
+function renderReports(){
+  const g=document.getElementById('reportGrid'),em=document.getElementById('reportEmpty');g.innerHTML='';
+  if(!reports.length){em.style.display='block';return}em.style.display='none';
+  reports.forEach(r=>{
+    const c=document.createElement('div');c.className='blog-card report-card reveal visible';
+    c.innerHTML='<div class="blog-card-color"></div><div class="report-card-body"><div class="report-icon">PDF</div><div class="blog-card-meta"><span class="blog-category">'+esc(r.category)+'</span><span>'+fmtDate(r.created_at)+'</span></div><h3>'+esc(r.title)+'</h3><p class="blog-excerpt">'+esc(r.description||'')+'</p><div class="report-meta-row"><span class="report-size">'+fmtBytes(r.file_size)+'</span></div></div><div class="blog-card-footer"><a class="report-download-link" href="'+esc(r.file_url)+'" target="_blank" rel="noopener">View / Download →</a><div class="blog-card-actions"><button class="blog-action-btn" onclick="editReport(\''+r.id+'\')">edit</button><button class="blog-action-btn delete" onclick="delReport(\''+r.id+'\')">del</button></div></div>';
+    g.appendChild(c);
+  });
+}
+
+function openReportModal(id){
+  document.getElementById('reportTitle').style.borderColor='';document.getElementById('reportFile').style.borderColor='';
+  if(id){const r=reports.find(x=>x.id===id);if(!r)return;document.getElementById('reportModalTitle').textContent='Edit Report';document.getElementById('reportEditId').value=id;document.getElementById('reportTitle').value=r.title;document.getElementById('reportCategory').value=r.category;document.getElementById('reportDesc').value=r.description||'';document.getElementById('reportFileHint').textContent='Max 25MB. Leave empty to keep the existing file.'}
+  else{document.getElementById('reportModalTitle').textContent='Upload Report';document.getElementById('reportEditId').value='';document.getElementById('reportTitle').value='';document.getElementById('reportCategory').value='Thesis';document.getElementById('reportDesc').value='';document.getElementById('reportFileHint').textContent='Max 25MB. Uploading a new file replaces the existing one when editing.'}
+  document.getElementById('reportFile').value='';
+  document.getElementById('reportModal').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeReportModal(){document.getElementById('reportModal').classList.remove('open');document.body.style.overflow=''}
+
+async function publishReport(){
+  if(!sbOk){toast('Connect Supabase to upload reports',true);return}
+  const title=document.getElementById('reportTitle').value.trim(),category=document.getElementById('reportCategory').value,description=document.getElementById('reportDesc').value.trim(),editId=document.getElementById('reportEditId').value,fileInput=document.getElementById('reportFile'),file=fileInput.files[0];
+  if(!title){document.getElementById('reportTitle').style.borderColor='#ef4444';return}
+  if(!editId&&!file){document.getElementById('reportFile').style.borderColor='#ef4444';toast('Please select a PDF file',true);return}
+  if(file&&file.size>25*1024*1024){toast('File exceeds 25MB limit',true);return}
+  if(file&&file.type!=='application/pdf'){toast('Only PDF files are allowed',true);return}
+  const btn=document.getElementById('reportPublishBtn');btn.textContent='Uploading...';btn.disabled=true;
+  try{
+    let file_url,file_size,file_path;
+    if(file){
+      file_path=Date.now()+'_'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+      const{error:upErr}=await sb.storage.from(REPORTS_BUCKET).upload(file_path,file,{cacheControl:'3600',upsert:false});
+      if(upErr)throw upErr;
+      const{data:urlData}=sb.storage.from(REPORTS_BUCKET).getPublicUrl(file_path);
+      file_url=urlData.publicUrl;file_size=file.size;
+    }
+    if(editId){
+      const update={title,category,description};
+      if(file){update.file_url=file_url;update.file_size=file_size;update.file_path=file_path}
+      const{error}=await sb.from('reports').update(update).eq('id',editId);if(error)throw error;
+      toast('Report updated');
+    }else{
+      const{error}=await sb.from('reports').insert([{title,category,description,file_url,file_size,file_path,created_at:new Date().toISOString()}]);if(error)throw error;
+      toast('Report uploaded');
+    }
+    await loadReports();closeReportModal();
+  }catch(e){console.error(e);toast('Upload failed: '+(e.message||'unknown error'),true)}
+  btn.textContent='Upload';btn.disabled=false;
+}
+
+function editReport(id){openReportModal(id)}
+async function delReport(id){
+  if(!confirm('Delete this report? This also removes the PDF file from storage.'))return;
+  try{
+    const r=reports.find(x=>x.id===id);
+    if(r&&r.file_path)await sb.storage.from(REPORTS_BUCKET).remove([r.file_path]);
+    const{error}=await sb.from('reports').delete().eq('id',id);if(error)throw error;
+    toast('Report deleted');await loadReports();
+  }catch(e){console.error(e);toast('Failed to delete',true)}
+}
+
+document.getElementById('reportModal').addEventListener('click',e=>{if(e.target===document.getElementById('reportModal'))closeReportModal()});
 
 initSB();loadPosts();
 </script>
