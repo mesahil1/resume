@@ -1,0 +1,9 @@
+# Secret credentials — NEVER commit this
+.env
+
+# Build output (Netlify/Vercel rebuild this automatically)
+dist/
+
+# Node
+node_modules/
+npm-debug.log*

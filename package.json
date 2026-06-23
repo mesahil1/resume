@@ -1,0 +1,12 @@
+{
+  "name": "sahil-portfolio",
+  "version": "1.0.0",
+  "description": "Mohamod Sahil Ansari — Portfolio & Blog",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && npx serve dist"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

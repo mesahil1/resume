@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamod Sahil Ansari — DevOps Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e17;--bg2:#111827;--bg3:#1a2332;--bdr:#1e3a5f;--tx:#e2e8f0;--tx2:#94a3b8;--tx3:#64748b;--ac:#22d3ee;--ac2:#a78bfa;--ac3:#34d399;--ac4:#f472b6;--gn:#4ade80;--mono:'JetBrains Mono',monospace;--sans:'Outfit',sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(34,211,238,.03)1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.03)1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,14,23,.85);border-bottom:1px solid rgba(34,211,238,.1)}
+.nav-logo{font-family:var(--mono);font-size:1.1rem;font-weight:600;color:var(--ac);text-decoration:none;letter-spacing:-.5px}.nav-logo span{color:var(--tx3)}
+.nav-links{display:flex;gap:1.6rem;list-style:none}.nav-links a{font-family:var(--mono);font-size:.78rem;color:var(--tx2);text-decoration:none;transition:color .3s}.nav-links a:hover{color:var(--ac)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;z-index:110}
+.hamburger span{display:block;width:24px;height:2px;background:var(--tx);transition:all .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{display:none;position:fixed;inset:0;background:rgba(10,14,23,.97);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:2rem}
+.mobile-nav.open{display:flex}.mobile-nav a{font-family:var(--mono);font-size:1.2rem;color:var(--tx2);text-decoration:none;transition:color .3s}.mobile-nav a:hover{color:var(--ac)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:0 6vw;position:relative}
+.hero-content{max-width:800px;position:relative;z-index:2}
+.hero-tag{font-family:var(--mono);font-size:.85rem;color:var(--gn);margin-bottom:1.5rem;display:flex;align-items:center;gap:8px;animation:fadeUp .8s ease both}
+.hero-tag .cursor{display:inline-block;width:8px;height:16px;background:var(--gn);animation:blink 1s step-end infinite}
+.hero-name{font-size:clamp(3rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-3px;margin-bottom:1rem;animation:fadeUp .8s ease .1s both}
+.hero-name .hl{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-title{font-family:var(--mono);font-size:clamp(.95rem,2vw,1.25rem);color:var(--tx2);margin-bottom:1.5rem;font-weight:400;animation:fadeUp .8s ease .2s both}
+.hero-title em{color:var(--ac);font-style:normal;font-weight:500}
+.hero-desc{font-size:1.05rem;color:var(--tx2);max-width:580px;margin-bottom:2.5rem;animation:fadeUp .8s ease .3s both}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .8s ease .4s both}
+.btn{font-family:var(--mono);font-size:.85rem;padding:.75rem 1.5rem;border:1px solid var(--bdr);background:0 0;color:var(--tx);cursor:pointer;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{background:rgba(34,211,238,.15);border-color:var(--ac);color:var(--ac)}.btn-primary{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}.btn-primary:hover{background:0 0;color:var(--ac)}
+.orb{position:absolute;right:8vw;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(34,211,238,.12),rgba(167,139,250,.08),transparent 70%);filter:blur(60px);animation:float 8s ease-in-out infinite;z-index:1}
+
+/* SECTIONS */
+section{padding:6rem 6vw;position:relative;z-index:2}
+.section-header{margin-bottom:4rem}.section-label{font-family:var(--mono);font-size:.8rem;color:var(--ac);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-1.5px}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--tx2);margin-bottom:1.2rem;font-size:1.02rem}.about-text strong{color:var(--tx);font-weight:500}
+.status-card{background:var(--bg2);border:1px solid var(--bdr);padding:2rem;position:relative;overflow:hidden}
+.status-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2),var(--ac3))}
+.status-card h3{font-family:var(--mono);font-size:.85rem;color:var(--ac);margin-bottom:1.5rem;display:flex;align-items:center;gap:8px}
+.status-card h3 .dot{width:8px;height:8px;background:var(--gn);border-radius:50%;animation:pulse-dot 2s ease infinite}
+.status-row{display:flex;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid rgba(30,58,95,.4);font-size:.88rem}.status-row:last-child{border-bottom:none}
+.status-key{font-family:var(--mono);color:var(--tx3);font-size:.78rem}.status-val{color:var(--tx);font-weight:500}
+.lang-section{margin-top:2rem}.lang-section h4{font-family:var(--mono);font-size:.78rem;color:var(--ac);margin-bottom:1rem;letter-spacing:1px}
+.lang-row{display:flex;align-items:center;gap:12px;margin-bottom:.7rem}.lang-name{font-family:var(--mono);font-size:.8rem;color:var(--tx2);width:70px}
+.lang-bar-track{flex:1;height:6px;background:rgba(30,58,95,.5);border-radius:3px;overflow:hidden}
+.lang-bar-fill{height:100%;border-radius:3px;transition:width 1.5s cubic-bezier(.23,1,.32,1);width:0}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem}
+.skill-card{background:var(--bg2);border:1px solid var(--bdr);padding:2rem;transition:all .4s cubic-bezier(.23,1,.32,1);position:relative;overflow:hidden}
+.skill-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:0;transition:height .4s}
+.skill-card:hover{border-color:var(--ac);transform:translateY(-4px);background:var(--bg3)}.skill-card:hover::after{height:2px}
+.skill-card:nth-child(1)::after{background:var(--ac)}.skill-card:nth-child(2)::after{background:var(--ac2)}.skill-card:nth-child(3)::after{background:var(--ac3)}.skill-card:nth-child(4)::after{background:var(--ac4)}.skill-card:nth-child(5)::after{background:var(--ac)}.skill-card:nth-child(6)::after{background:var(--ac2)}.skill-card:nth-child(7)::after{background:var(--ac3)}
+.skill-icon{font-size:1.8rem;margin-bottom:1rem;display:block}.skill-card h3{font-size:1.05rem;font-weight:600;margin-bottom:.8rem;letter-spacing:-.3px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tag{font-family:var(--mono);font-size:.7rem;padding:4px 10px;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.15);color:var(--tx2);transition:all .3s}
+.skill-card:hover .skill-tag{border-color:rgba(34,211,238,.35);color:var(--tx)}
+
+/* TIMELINE */
+.timeline{position:relative;max-width:800px}.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--ac),var(--ac2),transparent)}
+.timeline-item{padding-left:3rem;margin-bottom:3.5rem;position:relative}.timeline-item:last-child{margin-bottom:0}
+.timeline-item::before{content:'';position:absolute;left:-5px;top:6px;width:11px;height:11px;border:2px solid var(--ac);background:var(--bg);border-radius:50%;transition:background .3s}
+.timeline-item:hover::before{background:var(--ac)}
+.timeline-date{font-family:var(--mono);font-size:.8rem;color:var(--ac);margin-bottom:.3rem}
+.timeline-role{font-size:1.3rem;font-weight:600;margin-bottom:.2rem;letter-spacing:-.5px}
+.timeline-company{font-family:var(--mono);font-size:.9rem;color:var(--tx2);margin-bottom:.8rem}
+.timeline-desc{color:var(--tx3);font-size:.92rem;line-height:1.7}
+.timeline-desc li{list-style:none;padding-left:1.2rem;position:relative;margin-bottom:.4rem}
+.timeline-desc li::before{content:'▹';position:absolute;left:0;color:var(--ac)}
+.timeline-skills{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem}
+.timeline-skill-tag{font-family:var(--mono);font-size:.65rem;padding:3px 8px;border:1px solid rgba(34,211,238,.2);background:rgba(34,211,238,.05);color:var(--ac)}
+
+/* EDUCATION */
+.edu-cards{display:flex;flex-direction:column;gap:2rem}
+.edu-card{background:var(--bg2);border:1px solid var(--bdr);padding:2.5rem;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--ac2),var(--ac))}
+.edu-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem}
+.edu-degree{font-size:1.25rem;font-weight:700;letter-spacing:-.5px}
+.edu-years{font-family:var(--mono);font-size:.8rem;color:var(--ac2);padding:4px 12px;border:1px solid rgba(167,139,250,.25);background:rgba(167,139,250,.08);white-space:nowrap}
+.edu-school{font-family:var(--mono);font-size:.92rem;color:var(--tx2);margin-bottom:.2rem}
+.edu-location{font-size:.85rem;color:var(--tx3);margin-bottom:1.5rem}
+.edu-projects-title{font-family:var(--mono);font-size:.78rem;color:var(--ac);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:8px}
+.edu-projects-title::after{content:'';flex:1;height:1px;background:var(--bdr)}
+.edu-projects{display:flex;flex-direction:column;gap:1rem}
+.edu-project{display:flex;gap:1.2rem;align-items:flex-start;padding:1.2rem;background:rgba(10,14,23,.5);border:1px solid rgba(30,58,95,.4);transition:all .3s}
+.edu-project:hover{border-color:var(--ac);background:rgba(34,211,238,.03)}
+.edu-project-num{font-family:var(--mono);font-size:.75rem;font-weight:700;color:var(--bg);background:linear-gradient(135deg,var(--ac),var(--ac2));width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:2px}
+.edu-project-content h4{font-size:.98rem;font-weight:600;margin-bottom:.4rem}
+.edu-project-content p{font-size:.84rem;color:var(--tx3);line-height:1.6}
+.edu-project-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:.6rem}
+.edu-project-tag{font-family:var(--mono);font-size:.65rem;padding:3px 8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.06);color:var(--ac2)}
+.edu-project.thesis{border-color:rgba(34,211,238,.3);background:rgba(34,211,238,.04)}
+.edu-project.thesis:hover{border-color:var(--ac);background:rgba(34,211,238,.06)}
+.edu-project.thesis .edu-project-num{background:linear-gradient(135deg,var(--ac3),var(--ac));font-size:.62rem;letter-spacing:.5px}
+.thesis-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:1px;text-transform:uppercase;color:var(--ac3);border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.06);padding:2px 8px;margin-left:.6rem;display:inline-block;vertical-align:middle}
+.edu-project-content h4{display:flex;align-items:center;flex-wrap:wrap;gap:.3rem}
+.edu-project-link{font-family:var(--mono);font-size:.74rem;color:var(--ac);text-decoration:none;display:inline-flex;align-items:center;gap:5px;margin-top:.7rem;transition:gap .3s}
+.edu-project-link:hover{gap:9px}
+
+/* CERTS */
+.cert-card{background:var(--bg2);border:1px solid var(--bdr);padding:2rem;display:inline-flex;gap:1.2rem;align-items:center;transition:all .3s}
+.cert-card:hover{border-color:var(--ac);transform:translateY(-2px)}
+.cert-badge{width:52px;height:52px;background:linear-gradient(135deg,rgba(34,211,238,.15),rgba(167,139,250,.1));border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.cert-info h3{font-size:1.05rem;font-weight:600;margin-bottom:.3rem}.cert-info p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
+
+/* VOLUNTEER */
+.volunteer-card{background:var(--bg2);border:1px solid var(--bdr);padding:2rem;max-width:700px;position:relative;overflow:hidden}
+.volunteer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac3),var(--ac))}
+.volunteer-card h3{font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
+.volunteer-card .vol-org{font-family:var(--mono);font-size:.85rem;color:var(--ac3);margin-bottom:.2rem}
+.volunteer-card .vol-date{font-family:var(--mono);font-size:.78rem;color:var(--tx3);margin-bottom:.8rem}
+.volunteer-card p.vol-desc{color:var(--tx2);font-size:.92rem}
+
+/* BLOG */
+.blog-header-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:2rem}.blog-header-row .section-header{margin-bottom:0}
+.btn-add-post{font-family:var(--mono);font-size:.82rem;padding:.65rem 1.3rem;background:0 0;border:1px solid var(--ac);color:var(--ac);cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-add-post:hover{background:var(--ac);color:var(--bg)}
+.blog-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.5rem}
+.blog-filter-btn{font-family:var(--mono);font-size:.72rem;padding:5px 14px;background:0 0;border:1px solid var(--bdr);color:var(--tx3);cursor:pointer;transition:all .3s}
+.blog-filter-btn:hover{border-color:var(--ac);color:var(--tx2)}.blog-filter-btn.active{border-color:var(--ac);background:rgba(34,211,238,.1);color:var(--ac)}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1.8rem}
+.blog-card{background:var(--bg2);border:1px solid var(--bdr);transition:all .4s cubic-bezier(.23,1,.32,1);overflow:hidden;display:flex;flex-direction:column}
+.blog-card:hover{border-color:var(--ac);transform:translateY(-5px);background:var(--bg3);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.blog-card-color{height:3px;background:linear-gradient(90deg,var(--ac),var(--ac2))}
+.blog-card-body{padding:2rem 2rem 1.2rem;flex:1;display:flex;flex-direction:column;cursor:pointer}
+.blog-card-meta{font-family:var(--mono);font-size:.72rem;color:var(--tx3);margin-bottom:1rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.blog-category{color:var(--ac);padding:2px 10px;border:1px solid rgba(34,211,238,.2);background:rgba(34,211,238,.06)}
+.blog-card h3{font-size:1.2rem;font-weight:600;letter-spacing:-.3px;margin-bottom:.8rem;line-height:1.4}
+.blog-card p.blog-excerpt{font-size:.9rem;color:var(--tx2);line-height:1.7;flex:1;margin-bottom:1rem}
+.blog-card-tags{display:flex;flex-wrap:wrap;gap:5px}.blog-card-tag{font-family:var(--mono);font-size:.62rem;padding:3px 8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.06);color:var(--ac2)}
+.blog-card-footer{padding:1rem 2rem;border-top:1px solid rgba(30,58,95,.3);display:flex;justify-content:space-between;align-items:center}
+.blog-read-link{font-family:var(--mono);font-size:.76rem;color:var(--ac);display:flex;align-items:center;gap:6px;cursor:pointer;background:none;border:none;transition:gap .3s}
+.blog-card:hover .blog-read-link{gap:10px}
+.blog-card-actions{display:flex;gap:6px}
+.blog-action-btn{font-family:var(--mono);font-size:.68rem;padding:4px 10px;background:0 0;border:1px solid var(--bdr);color:var(--tx3);cursor:pointer;transition:all .3s}
+.blog-action-btn:hover{border-color:var(--ac);color:var(--ac)}.blog-action-btn.delete:hover{border-color:#ef4444;color:#ef4444}
+.blog-empty{text-align:center;padding:5rem 2rem;border:1px dashed var(--bdr);background:rgba(17,24,39,.5)}
+.blog-empty p{color:var(--tx3);font-size:1rem;margin-bottom:.5rem}.blog-empty span{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
+.blog-loading{text-align:center;padding:4rem 2rem;font-family:var(--mono);color:var(--tx3);font-size:.9rem}
+.blog-loading .spinner{display:inline-block;width:24px;height:24px;border:2px solid var(--bdr);border-top-color:var(--ac);border-radius:50%;animation:spin .8s linear infinite;margin-bottom:1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ARTICLE FULL PAGE */
+.article-page{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
+.article-page.open{display:block}
+.article-page-inner{max-width:780px;margin:0 auto;padding:0 2rem 6rem}
+.article-topbar{position:sticky;top:0;z-index:10;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;backdrop-filter:blur(20px);background:rgba(10,14,23,.85);border-bottom:1px solid rgba(30,58,95,.3);margin-bottom:3rem}
+.article-back{font-family:var(--mono);font-size:.82rem;color:var(--tx2);background:none;border:1px solid var(--bdr);padding:.5rem 1rem;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s}
+.article-back:hover{border-color:var(--ac);color:var(--ac)}
+.article-topbar-title{font-family:var(--mono);font-size:.75rem;color:var(--tx3);max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.article-progress{position:fixed;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));z-index:250;transition:width .1s}
+.article-hero{margin-bottom:3rem;padding-top:1rem}
+.article-hero h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1.5px;line-height:1.2;margin-bottom:1.5rem}
+.article-divider{width:60px;height:2px;background:linear-gradient(90deg,var(--ac),var(--ac2));margin-top:2rem}
+.article-body{font-size:1.08rem;color:var(--tx2);line-height:1.9}
+.article-body p{margin-bottom:1.5rem}
+.article-body h2{font-size:1.4rem;font-weight:700;color:var(--tx);margin:2.5rem 0 1rem;letter-spacing:-.5px}
+.article-body h3{font-size:1.15rem;font-weight:600;color:var(--tx);margin:2rem 0 .8rem}
+.article-body code{font-family:var(--mono);font-size:.88rem;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.12);padding:2px 6px;color:var(--ac)}
+.article-body pre{background:#0d1117;border:1px solid var(--bdr);padding:1.5rem;overflow-x:auto;margin:1.5rem 0;font-family:var(--mono);font-size:.85rem;line-height:1.6;color:var(--tx)}
+.article-body blockquote{border-left:3px solid var(--ac2);padding:.8rem 1.5rem;margin:1.5rem 0;background:rgba(167,139,250,.05);color:var(--tx);font-style:italic}
+.article-body ul,.article-body ol{padding-left:1.5rem;margin-bottom:1.5rem}.article-body li{margin-bottom:.5rem}
+.article-body strong{color:var(--tx)}.article-body a{color:var(--ac);text-decoration:underline}
+.article-footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.article-footer-author{font-family:var(--mono);font-size:.85rem;color:var(--tx2)}.article-footer-author strong{color:var(--tx)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,14,23,.92);backdrop-filter:blur(10px);z-index:200;justify-content:center;align-items:flex-start;padding:2rem;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bdr);width:100%;max-width:740px;margin:2rem auto}
+.modal-header{padding:1.5rem 2rem;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);z-index:1}
+.modal-header h2{font-size:1.2rem;font-weight:600;letter-spacing:-.5px}
+.modal-close{width:36px;height:36px;background:0 0;border:1px solid var(--bdr);color:var(--tx2);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+.modal-close:hover{border-color:#ef4444;color:#ef4444}
+.modal-body{padding:2rem}
+.form-group{margin-bottom:1.5rem}
+.form-group label{display:block;font-family:var(--mono);font-size:.78rem;color:var(--ac);margin-bottom:.5rem;letter-spacing:.5px}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--bg);border:1px solid var(--bdr);color:var(--tx);font-family:var(--sans);font-size:.92rem;padding:.75rem 1rem;outline:none;transition:border-color .3s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--ac)}
+.form-group textarea{resize:vertical;min-height:320px;line-height:1.8;font-family:var(--mono);font-size:.88rem}
+.form-group select{cursor:pointer}.form-group select option{background:var(--bg);color:var(--tx)}
+.form-group small{font-family:var(--mono);font-size:.7rem;color:var(--tx3);margin-top:.4rem;display:block}
+.modal-footer{padding:1.5rem 2rem;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:.8rem}
+.btn-cancel{font-family:var(--mono);font-size:.82rem;padding:.6rem 1.2rem;background:0 0;border:1px solid var(--bdr);color:var(--tx2);cursor:pointer;transition:all .3s}.btn-cancel:hover{border-color:var(--tx);color:var(--tx)}
+.btn-publish{font-family:var(--mono);font-size:.82rem;padding:.6rem 1.5rem;background:var(--ac);border:1px solid var(--ac);color:var(--bg);cursor:pointer;font-weight:600;transition:all .3s}.btn-publish:hover{background:0 0;color:var(--ac)}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);font-family:var(--mono);font-size:.82rem;padding:.8rem 1.5rem;background:var(--bg2);border:1px solid var(--ac);color:var(--ac);z-index:300;opacity:0;transition:all .4s cubic-bezier(.23,1,.32,1);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast.error{border-color:#ef4444;color:#ef4444}
+
+.sb-banner{font-family:var(--mono);font-size:.75rem;padding:.8rem 1.2rem;margin-bottom:2rem;border:1px solid rgba(34,211,238,.15);background:rgba(34,211,238,.04);color:var(--tx3);display:flex;align-items:center;gap:8px}
+.sb-banner.offline{border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.04)}
+
+/* TERMINAL */
+.terminal-wrap{background:#0d1117;border:1px solid var(--bdr);overflow:hidden;max-width:720px;margin:0 auto}
+.terminal-bar{background:#161b22;padding:.7rem 1rem;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr)}
+.terminal-dot{width:12px;height:12px;border-radius:50%}.terminal-dot:nth-child(1){background:#ff5f57}.terminal-dot:nth-child(2){background:#ffbd2e}.terminal-dot:nth-child(3){background:#28c840}
+.terminal-bar span{font-family:var(--mono);font-size:.75rem;color:var(--tx3);margin-left:auto}
+.terminal-body{padding:1.5rem;font-family:var(--mono);font-size:.82rem;line-height:2}
+.terminal-line .prompt{color:var(--gn)}.terminal-line .cmd{color:var(--tx)}.terminal-line .output{color:var(--tx2)}.terminal-line .flag{color:var(--ac2)}.terminal-line .string{color:var(--ac)}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link{font-family:var(--mono);font-size:.88rem;color:var(--tx2);text-decoration:none;display:flex;align-items:center;gap:12px;padding:1rem 1.5rem;border:1px solid var(--bdr);background:var(--bg2);transition:all .3s}
+.contact-link:hover{border-color:var(--ac);color:var(--ac);background:var(--bg3)}
+.contact-link .link-icon{width:28px;text-align:center;font-weight:700;flex-shrink:0}
+.contact-link .arrow{margin-left:auto;opacity:0;transition:all .3s;transform:translateX(-8px)}.contact-link:hover .arrow{opacity:1;transform:translateX(0)}
+
+/* FOOTER */
+footer{padding:3rem 6vw;border-top:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--bg2);border:1px solid var(--bdr);color:var(--ac);font-size:1.2rem;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:50;opacity:0;pointer-events:none;transition:all .3s}
+.back-to-top.show{opacity:1;pointer-events:all}.back-to-top:hover{background:var(--ac);color:var(--bg);border-color:var(--ac)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes float{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-52%) scale(1.05)}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.23,1,.32,1)}.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:768px){nav{padding:.8rem 1.2rem}.nav-links{display:none}.hamburger{display:flex}section{padding:4rem 5vw}.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}.hero-name{letter-spacing:-1.5px}.orb{width:200px;height:200px;right:-30px}.skills-grid{grid-template-columns:1fr 1fr}.edu-project{flex-direction:column;gap:.8rem}footer{flex-direction:column;gap:1rem;text-align:center}.terminal-body{font-size:.72rem;padding:1rem}.blog-grid{grid-template-columns:1fr}.article-topbar-title{display:none}.article-hero h1{font-size:1.5rem}.article-body{font-size:1rem}.modal-body{padding:1.5rem}.form-group textarea{min-height:220px}}
+@media(max-width:480px){.skills-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">sahil<span>.ansari</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#education">education</a></li>
+    <li><a href="#certs">certs</a></li>
+    <li><a href="#blog">blog</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about">about</a><a href="#skills">skills</a><a href="#experience">experience</a><a href="#education">education</a><a href="#certs">certs</a><a href="#blog">blog</a><a href="#contact">contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag"><span>~/sahil $</span> whoami <span class="cursor"></span></div>
+    <h1 class="hero-name">Mohamod Sahil<br><span class="hl">Ansari</span></h1>
+    <p class="hero-title">DevOps Engineer · MSc CyberSecurity @ <em>Aalborg University</em></p>
+    <p class="hero-desc">Results-driven DevOps Engineer with 3+ years of experience optimizing system performance, building fully automated CI/CD pipelines, orchestrating containerized applications on Kubernetes, and ensuring high availability of critical systems. Completing a Master's in CyberSecurity in Copenhagen, graduating June 2026.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch →</a>
+      <a href="#experience" class="btn">View experience</a>
+    </div>
+  </div>
+  <div class="orb"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal"><p class="section-label">01 // About</p><h2 class="section-title">The Engineer Behind<br>the Infrastructure</h2></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm <strong>Mohamod Sahil Ansari</strong>, a DevOps Engineer currently based in <strong>Hvidovre, Copenhagen, Denmark</strong>. With over three years of hands-on experience at <strong>Khalti Pvt. Ltd.</strong> and <strong>Bent Ray Technologies</strong>, I've built fully automated CI/CD pipelines, managed Kubernetes clusters at scale, and provisioned cloud infrastructure using Terraform &amp; Terragrunt on AWS.</p>
+      <p>I'm in the final stage of a <strong>Master's in CyberSecurity at Aalborg University Copenhagen</strong> (graduating June 25, 2026), deepening my expertise in network intrusion detection, vehicular network security, and privacy-preserving technologies — bridging reliable infrastructure with robust security.</p>
+      <p>I hold a <strong>BSc in Computer Science &amp; IT from Tribhuwan University</strong> (Nepal) and am a <strong>Certified Kubernetes Administrator (CKA)</strong>. Outside work, I love outdoor sports, traveling to new places, trying local cuisines, and reading.</p>
+    </div>
+    <div class="reveal">
+      <div class="status-card">
+        <h3><span class="dot"></span> system.status</h3>
+        <div class="status-row"><span class="status-key">role</span><span class="status-val">DevOps Engineer</span></div>
+        <div class="status-row"><span class="status-key">degree</span><span class="status-val">MSc CyberSecurity</span></div>
+        <div class="status-row"><span class="status-key">graduating</span><span class="status-val">June 25, 2026</span></div>
+        <div class="status-row"><span class="status-key">thesis</span><span class="status-val">QEF for Zeek/Suricata/Snort</span></div>
+        <div class="status-row"><span class="status-key">university</span><span class="status-val">Aalborg University CPH</span></div>
+        <div class="status-row"><span class="status-key">location</span><span class="status-val">Hvidovre, Denmark</span></div>
+        <div class="status-row"><span class="status-key">nationality</span><span class="status-val">Nepali</span></div>
+        <div class="status-row"><span class="status-key">certified</span><span class="status-val">CKA (Kubernetes)</span></div>
+        <div class="status-row"><span class="status-key">status</span><span class="status-val" style="color:var(--gn)">● Open to opportunities</span></div>
+      </div>
+      <div class="lang-section">
+        <h4>LANGUAGES</h4>
+        <div class="lang-row"><span class="lang-name">Nepali</span><div class="lang-bar-track"><div class="lang-bar-fill" data-width="100%" style="background:var(--ac)"></div></div></div>
+        <div class="lang-row"><span class="lang-name">English</span><div class="lang-bar-track"><div class="lang-bar-fill" data-width="85%" style="background:var(--ac2)"></div></div></div>
+        <div class="lang-row"><span class="lang-name">Danish</span><div class="lang-bar-track"><div class="lang-bar-fill" data-width="55%" style="background:var(--ac3)"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal"><p class="section-label">02 // Tech Stack</p><h2 class="section-title">Tools & Technologies</h2></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><span class="skill-icon">🐧</span><h3>Linux & Web Servers</h3><div class="skill-tags"><span class="skill-tag">Linux</span><span class="skill-tag">Nginx</span><span class="skill-tag">Apache</span><span class="skill-tag">Windows Server</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">🐳</span><h3>Containerization</h3><div class="skill-tags"><span class="skill-tag">Docker</span><span class="skill-tag">Docker Swarm</span><span class="skill-tag">Docker Stack</span><span class="skill-tag">Dockerfiles</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">☸️</span><h3>Kubernetes & Orchestration</h3><div class="skill-tags"><span class="skill-tag">Kubernetes</span><span class="skill-tag">Helm</span><span class="skill-tag">RKE2</span><span class="skill-tag">Rancher</span><span class="skill-tag">Longhorn</span><span class="skill-tag">ArgoCD</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">🏗️</span><h3>Infrastructure as Code</h3><div class="skill-tags"><span class="skill-tag">Terraform</span><span class="skill-tag">Terragrunt</span><span class="skill-tag">Ansible</span><span class="skill-tag">AWX</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">☁️</span><h3>AWS Cloud</h3><div class="skill-tags"><span class="skill-tag">ECS</span><span class="skill-tag">ECR</span><span class="skill-tag">Route53</span><span class="skill-tag">API Gateway</span><span class="skill-tag">RDS</span><span class="skill-tag">S3</span><span class="skill-tag">Secrets Manager</span><span class="skill-tag">ACM</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">⚙️</span><h3>CI/CD & Version Control</h3><div class="skill-tags"><span class="skill-tag">Jenkins</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">GitOps</span><span class="skill-tag">Git</span><span class="skill-tag">GitLab</span><span class="skill-tag">SVN</span></div></div>
+    <div class="skill-card reveal"><span class="skill-icon">📊</span><h3>Monitoring & Logging</h3><div class="skill-tags"><span class="skill-tag">Prometheus</span><span class="skill-tag">Grafana</span><span class="skill-tag">ELK Stack</span><span class="skill-tag">Zabbix</span><span class="skill-tag">Nagios</span></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header reveal"><p class="section-label">03 // Experience</p><h2 class="section-title">Career Journey</h2></div>
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <span class="timeline-date">2022 — 2024</span>
+      <h3 class="timeline-role">DevOps Engineer</h3>
+      <p class="timeline-company">Khalti Pvt. Ltd.</p>
+      <ul class="timeline-desc">
+        <li>Designed, developed, and maintained fully automated CI/CD pipelines in Jenkins and GitHub Actions</li>
+        <li>Created Terraform modules for provisioning AWS resources (ECS, ECR, Route53, API Gateway, RDS, S3, Secrets Manager, ACM)</li>
+        <li>Managed Kubernetes clusters — deployment, scaling, maintenance (RKE2, Rancher, Longhorn)</li>
+        <li>Integrated GitOps principles using ArgoCD for declarative Kubernetes deployments</li>
+        <li>Created Dockerfiles for containerization and managed Docker Swarm deployments</li>
+        <li>Developed Helm charts for efficient Kubernetes application management</li>
+        <li>Built end-to-end pipelines for infrastructure provisioning with Jenkins &amp; Terraform</li>
+        <li>Implemented configuration management using Ansible and Ansible Tower (AWX)</li>
+        <li>Set up monitoring with ELK Stack, Prometheus, Grafana, and Zabbix</li>
+      </ul>
+      <div class="timeline-skills"><span class="timeline-skill-tag">Ansible</span><span class="timeline-skill-tag">Linux</span><span class="timeline-skill-tag">Docker</span><span class="timeline-skill-tag">Kubernetes</span><span class="timeline-skill-tag">Helm</span><span class="timeline-skill-tag">CI/CD</span><span class="timeline-skill-tag">AWS</span><span class="timeline-skill-tag">Monitoring</span><span class="timeline-skill-tag">Jenkins</span><span class="timeline-skill-tag">ELK</span></div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-date">2021 — 2022</span>
+      <h3 class="timeline-role">Junior DevOps Engineer</h3>
+      <p class="timeline-company">Bent Ray Technologies</p>
+      <ul class="timeline-desc">
+        <li>Configured highly available and highly redundant environments</li>
+        <li>Containerized applications using Docker</li>
+        <li>Implemented continuous integration and continuous deployment (CI/CD)</li>
+        <li>Monitored data center infrastructure with Nagios, Zabbix, Prometheus &amp; Grafana</li>
+        <li>Administered version control tools including SVN and GitLab</li>
+        <li>Configured Windows and Linux web and application servers</li>
+        <li>Ensured proper application, database, and VM backups on schedule</li>
+        <li>Conducted research for system optimization and open-source product implementation</li>
+      </ul>
+      <div class="timeline-skills"><span class="timeline-skill-tag">Git/GitHub</span><span class="timeline-skill-tag">Containerization</span><span class="timeline-skill-tag">Monitoring</span><span class="timeline-skill-tag">CI/CD</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal"><p class="section-label">04 // Education</p><h2 class="section-title">Academic Background</h2></div>
+  <div class="edu-cards">
+    <div class="edu-card reveal">
+      <div class="edu-header"><div><h3 class="edu-degree">Master in CyberSecurity</h3><p class="edu-school">Aalborg University Copenhagen</p><p class="edu-location">Copenhagen, Denmark</p></div><span class="edu-years">2024 — 2026</span></div>
+      <p class="edu-projects-title">Semester Projects</p>
+      <div class="edu-projects">
+        <div class="edu-project"><div class="edu-project-num">01</div><div class="edu-project-content"><h4>Vehicular Network Cyber Attack &amp; Defence</h4><p>Researched cybersecurity threats targeting vehicular ad-hoc networks (VANETs), exploring attack vectors and proposing defence mechanisms for V2V and V2I communications.</p><div class="edu-project-tags"><span class="edu-project-tag">V2X Security</span><span class="edu-project-tag">VANETs</span><span class="edu-project-tag">Intrusion Detection</span><span class="edu-project-tag">Network Security</span></div></div></div>
+        <div class="edu-project"><div class="edu-project-num">02</div><div class="edu-project-content"><h4>NIDS in IoT</h4><p>Developed and evaluated a Network Intrusion Detection System for IoT environments, addressing challenges of resource-constrained devices and heterogeneous traffic patterns.</p><div class="edu-project-tags"><span class="edu-project-tag">IoT Security</span><span class="edu-project-tag">IDS/IPS</span><span class="edu-project-tag">Machine Learning</span><span class="edu-project-tag">Anomaly Detection</span></div></div></div>
+        <div class="edu-project"><div class="edu-project-num">03</div><div class="edu-project-content"><h4>Balancing Rights to Privacy with Protection of Society</h4><p>Investigated ethical and technical trade-offs between individual privacy rights and societal security, analyzing lawful data access frameworks and privacy-preserving technologies.</p><div class="edu-project-tags"><span class="edu-project-tag">Privacy</span><span class="edu-project-tag">Ethics</span><span class="edu-project-tag">GDPR</span><span class="edu-project-tag">Surveillance</span><span class="edu-project-tag">Policy</span></div></div></div>
+        <div class="edu-project thesis"><div class="edu-project-num">MA</div><div class="edu-project-content"><h4>A Multi-Dimensional Quality Evaluation Framework for Open-Source IDS/IPS Tools<span class="thesis-badge">Master's Thesis</span></h4><p>Designed a custom Quality Evaluation Framework (QEF), grounded in ISO/IEC 25010, to comparatively assess Zeek, Suricata, and Snort 3 across detection accuracy, performance, and operational quality characteristics. Validated the framework using a controlled three-VM testbed against four distinct attack scenarios, producing a reproducible, criteria-based methodology for selecting open-source intrusion detection and prevention tools. Supervised by Jannick Kirk Sørensen.</p><div class="edu-project-tags"><span class="edu-project-tag">IDS/IPS</span><span class="edu-project-tag">Zeek</span><span class="edu-project-tag">Suricata</span><span class="edu-project-tag">Snort 3</span><span class="edu-project-tag">ISO/IEC 25010</span><span class="edu-project-tag">Quality Evaluation Framework</span></div></div></div>
+      </div>
+    </div>
+    <div class="edu-card reveal"><div class="edu-header"><div><h3 class="edu-degree">BSc. Computer Science in Information Technology</h3><p class="edu-school">Tribhuwan University</p><p class="edu-location">Nepal</p></div><span class="edu-years">2016 — 2020</span></div></div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-header reveal"><p class="section-label">05 // Certification</p><h2 class="section-title">Validated Expertise</h2></div>
+  <div class="cert-card reveal"><div class="cert-badge">🎖️</div><div class="cert-info"><h3>Certified Kubernetes Administrator (CKA)</h3><p>The Linux Foundation / CNCF</p></div></div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+  <div class="section-header reveal"><p class="section-label">06 // Volunteer</p><h2 class="section-title">Community Involvement</h2></div>
+  <div class="volunteer-card reveal"><h3>Event Volunteer</h3><p class="vol-org">TechTrix Nepal</p><p class="vol-date">2019 — 2020</p><p class="vol-desc">Participated in TechTrix, the biggest tech event in Nepal organized by the University. Volunteered for crowd management and helped attendees, building strong public speaking and interpersonal skills.</p></div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="blog-header-row reveal"><div class="section-header"><p class="section-label">07 // Blog</p><h2 class="section-title">Articles & Thoughts</h2></div><button class="btn-add-post" onclick="openModal()">+ New Article</button></div>
+  <div id="sbBanner"></div>
+  <div class="blog-filters" id="blogFilters"></div>
+  <div class="blog-loading" id="blogLoading" style="display:none"><div class="spinner"></div><br>Loading articles...</div>
+  <div class="blog-grid" id="blogGrid"></div>
+  <div class="blog-empty" id="blogEmpty" style="display:none"><p>No articles yet.</p><span>Click "+ New Article" to publish your first post.</span></div>
+</section>
+
+<!-- ARTICLE FULL PAGE -->
+<div class="article-page" id="articlePage">
+  <div class="article-progress" id="articleProgress"></div>
+  <div class="article-topbar"><button class="article-back" onclick="closeArticle()">← Back to blog</button><span class="article-topbar-title" id="articleTopTitle"></span></div>
+  <div class="article-page-inner">
+    <div class="article-hero">
+      <div class="blog-card-meta"><span class="blog-category" id="artCat"></span><span id="artTime"></span><span id="artDate"></span></div>
+      <h1 id="artTitle"></h1>
+      <div class="blog-card-tags" id="artTags"></div>
+      <div class="article-divider"></div>
+    </div>
+    <div class="article-body" id="artBody"></div>
+    <div class="article-footer"><div class="article-footer-author">Written by <strong>Mohamod Sahil Ansari</strong></div><button class="article-back" onclick="closeArticle()">← Back to blog</button></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="blogModal">
+  <div class="modal">
+    <div class="modal-header"><h2 id="modalTitle">New Article</h2><button class="modal-close" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="editId" value="">
+      <div class="form-group"><label>Title</label><input type="text" id="postTitle" placeholder="e.g. Building a GitOps Pipeline with ArgoCD"></div>
+      <div class="form-group"><label>Category</label><select id="postCategory"><option>DevOps</option><option>Kubernetes</option><option>Cloud</option><option>CI/CD</option><option>Security</option><option>Linux</option><option>Tutorial</option><option>Career</option><option>Other</option></select></div>
+      <div class="form-group"><label>Tags</label><input type="text" id="postTags" placeholder="ArgoCD, GitOps, Kubernetes (comma-separated)"><small>Separate tags with commas</small></div>
+      <div class="form-group"><label>Content</label><textarea id="postContent" placeholder="Write your article here... Supports Markdown: ## headings, **bold**, `code`, > blockquotes, - lists"></textarea><small>Supports Markdown: ## headings, **bold**, `code`, ```code blocks```, > blockquotes, - lists</small></div>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeModal()">Cancel</button><button class="btn-publish" id="publishBtn" onclick="publishPost()">Publish</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- TERMINAL -->
+<section>
+  <div class="terminal-wrap reveal">
+    <div class="terminal-bar"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><span>sahil@devops ~ zsh</span></div>
+    <div class="terminal-body">
+      <div class="terminal-line"><span class="prompt">❯ </span><span class="cmd">kubectl get nodes</span> <span class="flag">--kubeconfig=production</span></div>
+      <div class="terminal-line"><span class="output">NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS &nbsp;ROLES &nbsp;&nbsp;VERSION</span></div>
+      <div class="terminal-line"><span class="string">rke2-master-01 &nbsp;Ready &nbsp;&nbsp;master &nbsp;v1.28.4</span></div>
+      <div class="terminal-line"><span class="string">rke2-worker-01 &nbsp;Ready &nbsp;&nbsp;worker &nbsp;v1.28.4</span></div>
+      <div class="terminal-line"><span class="string">rke2-worker-02 &nbsp;Ready &nbsp;&nbsp;worker &nbsp;v1.28.4</span></div>
+      <div class="terminal-line" style="margin-top:.5rem"><span class="prompt">❯ </span><span class="cmd">terraform plan</span> <span class="flag">-var-file=prod.tfvars</span></div>
+      <div class="terminal-line"><span class="output">Plan: 0 to add, 0 to change, 0 to destroy.</span></div>
+      <div class="terminal-line"><span class="string">Infrastructure is up to date. ✓</span></div>
+      <div class="terminal-line" style="margin-top:.5rem"><span class="prompt">❯ </span><span class="cmd">echo</span> <span class="string">"Let's build something resilient together"</span></div>
+      <div class="terminal-line"><span class="output">Let's build something resilient together</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal"><div class="section-header"><p class="section-label">08 // Contact</p><h2 class="section-title">Let's Connect</h2></div><p style="color:var(--tx2);font-size:1.02rem;max-width:450px">I'm always open to discussing DevOps practices, cloud architecture, cybersecurity, or new opportunities. Feel free to reach out.</p></div>
+    <div class="contact-links reveal">
+      <a href="mailto:me.sahilansari1@gmail.com" class="contact-link"><span class="link-icon">@</span>me.sahilansari1@gmail.com<span class="arrow">→</span></a>
+      <a href="https://www.linkedin.com/in/sahil-ansari1/" target="_blank" rel="noopener" class="contact-link"><span class="link-icon">in</span>linkedin.com/in/sahil-ansari1<span class="arrow">→</span></a>
+      <a href="tel:+4591763753" class="contact-link"><span class="link-icon">📞</span>+45 91 76 37 53<span class="arrow">→</span></a>
+      <a href="https://mohamodsahilansari.com.np" target="_blank" rel="noopener" class="contact-link"><span class="link-icon">🌐</span>mohamodsahilansari.com.np<span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<footer><p>© 2026 Mohamod Sahil Ansari. Crafted with precision.</p><p>Hvidovre, Copenhagen, Denmark 🇩🇰</p></footer>
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<!-- Supabase loaded async so it never blocks the page -->
+<script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+// ===== CORE UI =====
+const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} }) }, {threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*.08+'s';obs.observe(el)});
+
+const langObs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.querySelectorAll('.lang-bar-fill').forEach(b=>{b.style.width=b.dataset.width});langObs.unobserve(e.target)} }) }, {threshold:.3});
+document.querySelectorAll('.lang-section').forEach(el=>langObs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const id=this.getAttribute('href');if(id==='#'){window.scrollTo({top:0,behavior:'smooth'});return}const t=document.querySelector(id);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('mobileNav').classList.remove('open');document.getElementById('hamburger').classList.remove('active')})});
+
+const hb=document.getElementById('hamburger'),mn=document.getElementById('mobileNav');
+hb.addEventListener('click',()=>{hb.classList.toggle('active');mn.classList.toggle('open')});
+
+const btt=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>{btt.classList.toggle('show',window.scrollY>600)});
+btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});nls.forEach(l=>{l.style.color=l.getAttribute('href')==='#'+cur?'var(--ac)':''})});
+
+// ===== BLOG ENGINE =====
+// ⚠️  REPLACE THESE WITH YOUR SUPABASE CREDENTIALS:
+const SUPABASE_URL='YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_KEY';
+let sb=null,sbOk=false,posts=[],activeFilter='All';
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+function readTime(t){return Math.max(1,Math.ceil(t.trim().split(/\s+/).length/200))}
+function trunc(t,m){const c=t.replace(/[#*>`\-\n]+/g,' ').replace(/\s+/g,' ').trim();return c.length<=m?c:c.substring(0,m).trim()+'...'}
+
+function mdToHtml(md){let h=esc(md);h=h.replace(/```([\s\S]*?)```/g,'<pre>$1</pre>');h=h.replace(/`([^`]+)`/g,'<code>$1</code>');h=h.replace(/^### (.+)$/gm,'<h3>$1</h3>');h=h.replace(/^## (.+)$/gm,'<h2>$1</h2>');h=h.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');h=h.replace(/^&gt; (.+)$/gm,'<blockquote>$1</blockquote>');h=h.replace(/^- (.+)$/gm,'<li>$1</li>');h=h.replace(/(<li>.*<\/li>\n?)+/g,'<ul>$&</ul>');h=h.replace(/\n\n+/g,'</p><p>');h='<p>'+h+'</p>';h=h.replace(/<p>\s*<(h2|h3|pre|blockquote|ul)/g,'<$1');h=h.replace(/<\/(h2|h3|pre|blockquote|ul)>\s*<\/p>/g,'</$1>');h=h.replace(/<p>\s*<\/p>/g,'');return h}
+
+function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(err?' error':'');requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>t.classList.remove('show'),3000)}
+
+function initSB(){
+  const b=document.getElementById('sbBanner');
+  if(SUPABASE_URL==='YOUR_SUPABASE_URL'){
+    b.innerHTML='<div class="sb-banner offline">⚠ Supabase not configured — using local storage. Set SUPABASE_URL and SUPABASE_ANON_KEY to enable cloud persistence.</div>';
+    return;
+  }
+  // Wait for async script
+  if(typeof window.supabase==='undefined'){setTimeout(initSB,200);return}
+  try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);sbOk=true;b.innerHTML='<div class="sb-banner">⚡ Connected to Supabase — articles persist in the cloud.</div>'}
+  catch(e){b.innerHTML='<div class="sb-banner offline">⚠ Supabase connection failed — using local storage.</div>'}
+}
+
+async function loadPosts(){
+  document.getElementById('blogLoading').style.display='block';
+  document.getElementById('blogGrid').style.display='none';
+  if(sbOk){
+    try{const{data,error}=await sb.from('blog_posts').select('*').order('created_at',{ascending:false});if(error)throw error;posts=data||[]}
+    catch(e){console.error(e);toast('Supabase error — using local',true);loadLocal()}
+  } else loadLocal();
+  document.getElementById('blogLoading').style.display='none';
+  document.getElementById('blogGrid').style.display='';
+  buildFilters();renderPosts();
+}
+function loadLocal(){try{const s=localStorage.getItem('sahil_blog');if(s){posts=JSON.parse(s);return}}catch(e){}posts=seedPosts();saveLocal()}
+function saveLocal(){try{localStorage.setItem('sahil_blog',JSON.stringify(posts))}catch(e){}}
+
+async function createP(p){if(sbOk){const{data,error}=await sb.from('blog_posts').insert([p]).select();if(error)throw error;return data[0]}p.id='l_'+Date.now();p.created_at=new Date().toISOString();posts.unshift(p);saveLocal();return p}
+async function updateP(id,u){if(sbOk){const{data,error}=await sb.from('blog_posts').update(u).eq('id',id).select();if(error)throw error;return data[0]}const i=posts.findIndex(p=>p.id===id);if(i>=0)posts[i]={...posts[i],...u};saveLocal();return posts[i]}
+async function deleteP(id){if(sbOk){const{error}=await sb.from('blog_posts').delete().eq('id',id);if(error)throw error}posts=posts.filter(p=>p.id!==id);if(!sbOk)saveLocal()}
+
+function buildFilters(){const cats=['All',...new Set(posts.map(p=>p.category))];document.getElementById('blogFilters').innerHTML=cats.map(c=>'<button class="blog-filter-btn'+(c===activeFilter?' active':'')+'" onclick="filterP(\''+c+'\')">'+c+'</button>').join('')}
+function filterP(c){activeFilter=c;buildFilters();renderPosts()}
+
+function renderPosts(){
+  const g=document.getElementById('blogGrid'),em=document.getElementById('blogEmpty');g.innerHTML='';
+  const f=activeFilter==='All'?posts:posts.filter(p=>p.category===activeFilter);
+  const sorted=[...f].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  if(!sorted.length){em.style.display='block';return}em.style.display='none';
+  sorted.forEach(p=>{
+    const rt=readTime(p.content),tags=Array.isArray(p.tags)?p.tags:(p.tags||'').split(',').map(t=>t.trim()).filter(Boolean);
+    const c=document.createElement('div');c.className='blog-card reveal visible';
+    c.innerHTML='<div class="blog-card-color"></div><div class="blog-card-body" onclick="openArt(\''+p.id+'\')"><div class="blog-card-meta"><span class="blog-category">'+esc(p.category)+'</span><span>'+rt+' min read</span><span>'+fmtDate(p.created_at)+'</span></div><h3>'+esc(p.title)+'</h3><p class="blog-excerpt">'+esc(trunc(p.content,200))+'</p><div class="blog-card-tags">'+tags.map(t=>'<span class="blog-card-tag">'+esc(t)+'</span>').join('')+'</div></div><div class="blog-card-footer"><button class="blog-read-link" onclick="openArt(\''+p.id+'\')">Read full article →</button><div class="blog-card-actions"><button class="blog-action-btn" onclick="event.stopPropagation();editP(\''+p.id+'\')">edit</button><button class="blog-action-btn delete" onclick="event.stopPropagation();delP(\''+p.id+'\')">del</button></div></div>';
+    g.appendChild(c);
+  });
+}
+
+function openArt(id){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  const tags=Array.isArray(p.tags)?p.tags:[];
+  document.getElementById('artCat').textContent=p.category;
+  document.getElementById('artTime').textContent=readTime(p.content)+' min read';
+  document.getElementById('artDate').textContent=fmtDate(p.created_at);
+  document.getElementById('artTitle').textContent=p.title;
+  document.getElementById('articleTopTitle').textContent=p.title;
+  document.getElementById('artTags').innerHTML=tags.map(t=>'<span class="blog-card-tag">'+esc(t)+'</span>').join('');
+  document.getElementById('artBody').innerHTML=mdToHtml(p.content);
+  const pg=document.getElementById('articlePage');pg.classList.add('open');pg.scrollTop=0;document.body.style.overflow='hidden';
+  pg.onscroll=()=>{const pct=pg.scrollHeight-pg.clientHeight;document.getElementById('articleProgress').style.width=(pct>0?(pg.scrollTop/pct)*100:0)+'%'};
+}
+function closeArticle(){document.getElementById('articlePage').classList.remove('open');document.body.style.overflow='';document.getElementById('articleProgress').style.width='0'}
+
+function openModal(id){
+  document.getElementById('postTitle').style.borderColor='';document.getElementById('postContent').style.borderColor='';
+  if(id){const p=posts.find(x=>x.id===id);if(!p)return;document.getElementById('modalTitle').textContent='Edit Article';document.getElementById('editId').value=id;document.getElementById('postTitle').value=p.title;document.getElementById('postCategory').value=p.category;document.getElementById('postTags').value=(Array.isArray(p.tags)?p.tags:[]).join(', ');document.getElementById('postContent').value=p.content}
+  else{document.getElementById('modalTitle').textContent='New Article';document.getElementById('editId').value='';document.getElementById('postTitle').value='';document.getElementById('postCategory').value='DevOps';document.getElementById('postTags').value='';document.getElementById('postContent').value=''}
+  document.getElementById('blogModal').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('blogModal').classList.remove('open');document.body.style.overflow=''}
+
+async function publishPost(){
+  const title=document.getElementById('postTitle').value.trim(),cat=document.getElementById('postCategory').value,tagsR=document.getElementById('postTags').value.trim(),content=document.getElementById('postContent').value.trim(),editId=document.getElementById('editId').value;
+  if(!title){document.getElementById('postTitle').style.borderColor='#ef4444';return}if(!content){document.getElementById('postContent').style.borderColor='#ef4444';return}
+  const tags=tagsR?tagsR.split(',').map(t=>t.trim()).filter(Boolean):[],btn=document.getElementById('publishBtn');btn.textContent='Saving...';btn.disabled=true;
+  try{if(editId){await updateP(editId,{title,category:cat,tags,content});toast('Article updated')}else{await createP({title,category:cat,tags,content,created_at:new Date().toISOString()});toast('Article published')}
+  if(sbOk)await loadPosts();else{buildFilters();renderPosts()}closeModal()}catch(e){console.error(e);toast('Failed to save',true)}btn.textContent='Publish';btn.disabled=false;
+}
+function editP(id){openModal(id)}
+async function delP(id){if(!confirm('Delete this article?'))return;try{await deleteP(id);toast('Deleted');buildFilters();renderPosts()}catch(e){toast('Failed to delete',true)}}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('articlePage').classList.contains('open'))closeArticle();else closeModal()}});
+document.getElementById('blogModal').addEventListener('click',e=>{if(e.target===document.getElementById('blogModal'))closeModal()});
+
+function seedPosts(){return[
+{id:'s1',title:'Building a Production-Ready CI/CD Pipeline with Jenkins & Terraform',category:'DevOps',tags:['Jenkins','Terraform','CI/CD','AWS'],content:"One of the most impactful projects during my time at Khalti was designing an end-to-end CI/CD pipeline that combined Jenkins for orchestration with Terraform for infrastructure provisioning.\n\n## The Challenge\n\nOur team was spending hours on manual deployments, and infrastructure changes were error-prone. We needed a system that could handle everything from code commit to production deployment with minimal human intervention.\n\n## Pipeline Architecture\n\nThe pipeline consisted of five key stages:\n\n### 1. Source Stage\nGitHub webhooks trigger Jenkins on every push to main or release branches. We used multibranch pipelines to handle feature branches differently from production deployments.\n\n### 2. Build & Test\nDocker images are built using multi-stage Dockerfiles, then unit and integration tests run in isolated containers.\n\n### 3. Infrastructure\nTerraform modules provision or update AWS resources based on the environment:\n- **ECS clusters** for containerized services\n- **RDS instances** for databases\n- **Route53 records** for DNS management\n- **S3 buckets** for static assets\n\n### 4. Deploy\nArgoCD picks up the new image tags and performs a rolling deployment to our RKE2 Kubernetes clusters.\n\n### 5. Verify\nAutomated smoke tests run against the deployment, with automatic rollback if health checks fail.\n\n## Results\n\nDeployment time dropped from **2 hours to 12 minutes**, and we went from weekly releases to **multiple daily deployments** with confidence.",created_at:'2024-08-15T10:00:00Z'},
+{id:'s2',title:'Lessons Learned: Managing RKE2 Kubernetes Clusters at Scale',category:'Kubernetes',tags:['RKE2','Rancher','Longhorn','Helm','ArgoCD'],content:"Managing Kubernetes in production teaches you things no tutorial ever will. At Khalti, we ran RKE2 clusters managed through Rancher, with Longhorn providing persistent storage.\n\n## Storage Is Harder Than Compute\n\nLonghorn is excellent for distributed storage, but you need to understand replica placement, backup schedules, and what happens during node failures.\n\n> Always test your storage failover before you need it. A Friday evening is not the time to discover your PVCs don't survive a node drain.\n\n## Helm Charts Need Structure\n\nWhen I started, our Helm charts were a mess of hardcoded values. I restructured them with:\n- Environment-specific values files\n- Proper template helpers for repeated patterns\n- Semantic versioning tied to our release process\n\nThis alone reduced deployment issues by roughly **60%**.\n\n## GitOps Changed Everything\n\nMoving from imperative `kubectl apply` commands to declarative ArgoCD sync transformed our workflow:\n- Every change is **version-controlled**\n- Every deployment is **reviewable**\n- Every rollback is a `git revert` away\n\n## Monitoring Is Not Optional\n\nOur Prometheus + Grafana stack with custom dashboards gave us the visibility to catch issues before users noticed them. Key metrics we tracked:\n- Request latency (p50, p95, p99)\n- Error rates by service\n- Pod restart counts\n- Resource utilization vs. requests\n- Longhorn volume health",created_at:'2024-06-20T10:00:00Z'},
+{id:'s3',title:"From DevOps to CyberSecurity: Why I Chose to Pursue a Master's Degree",category:'Career',tags:['CyberSecurity','Aalborg University','Career','Education'],content:"After three years of building and maintaining infrastructure, I made a decision that surprised some colleagues: I left my position as a DevOps Engineer at Khalti to pursue a Master's in CyberSecurity at Aalborg University Copenhagen.\n\n## Why the Shift?\n\nWorking in DevOps, I constantly encountered security challenges — misconfigured IAM policies, container vulnerabilities, network exposure, secrets management. I realized that while I could implement security best practices, I wanted to **deeply understand the principles** behind them.\n\n## What I've Learned So Far\n\n### Semester 1: Vehicular Network Security\nMy first project on Vehicular Network Cyber Attacks opened my eyes to how different the security research world is from operations.\n\n### Semester 2: NIDS in IoT\nDesigning detection systems for resource-constrained devices forced me to think about efficiency in ways that cloud infrastructure rarely demands.\n\n### Semester 3: Privacy vs. Security\nPerhaps the most eye-opening project: **Balancing Rights to Privacy with Protection of Society**. It forced me to think beyond technical solutions and consider the ethical, legal, and societal implications.\n\n## The Bridge Between DevOps and Security\n\nI believe the combination of hands-on DevOps experience and formal cybersecurity education creates a powerful skillset. Infrastructure security isn't just about tools — it's about understanding threats, designing defenses, and making informed trade-offs.\n\nThe DevSecOps movement isn't just a buzzword. It's the recognition that security must be embedded into every stage of the software delivery lifecycle.",created_at:'2024-12-10T10:00:00Z'}
+]}
+
+initSB();loadPosts();
+</script>
+</body>
+</html>
