@@ -212,6 +212,14 @@ input[type=file]::file-selector-button{font-family:var(--mono);font-size:.74rem;
 
 .sb-banner{font-family:var(--mono);font-size:.75rem;padding:.8rem 1.2rem;margin-bottom:2rem;border:1px solid rgba(34,211,238,.15);background:rgba(34,211,238,.04);color:var(--tx3);display:flex;align-items:center;gap:8px}
 .sb-banner.offline{border-color:rgba(239,68,68,.2);background:rgba(239,68,68,.04)}
+.owner-login-link{font-family:var(--mono);font-size:.68rem;color:var(--tx3);opacity:.45;text-decoration:none;transition:opacity .3s}
+.owner-login-link:hover{opacity:1;color:var(--ac)}
+.owner-badge{font-family:var(--mono);font-size:.65rem;letter-spacing:.5px;text-transform:uppercase;color:var(--ac3);border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.06);padding:3px 9px;cursor:pointer;margin-left:10px}
+.owner-badge:hover{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:#ef4444}
+.blog-card-actions{display:none}
+.owner-mode .blog-card-actions{display:flex}
+.owner-mode .btn-add-post{display:inline-flex}
+body:not(.owner-mode) .btn-add-post{display:none}
 
 /* TERMINAL */
 .terminal-wrap{background:#0d1117;border:1px solid var(--bdr);overflow:hidden;max-width:720px;margin:0 auto}
@@ -289,7 +297,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
   <div class="section-header reveal"><p class="section-label">01 // About</p><h2 class="section-title">The Engineer Behind<br>the Infrastructure</h2></div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>I'm <strong>Mohamod Sahil Ansari</strong>, a DevOps Engineer currently based in <strong>Taastrup, Copenhagen, Denmark</strong>. With over three years of hands-on experience at <strong>Khalti Pvt. Ltd.</strong> and <strong>Bent Ray Technologies</strong>, I've built fully automated CI/CD pipelines, managed Kubernetes clusters at scale, and provisioned cloud infrastructure using Terraform &amp; Terragrunt on AWS.</p>
+      <p>I'm <strong>Mohamod Sahil Ansari</strong>, a DevOps Engineer currently based in <strong>Lindehaven, Taastrup, Copenhagen, Denmark</strong>. With over three years of hands-on experience at <strong>Khalti Pvt. Ltd.</strong> and <strong>Bent Ray Technologies</strong>, I've built fully automated CI/CD pipelines, managed Kubernetes clusters at scale, and provisioned cloud infrastructure using Terraform &amp; Terragrunt on AWS.</p>
       <p>I'm in the final stage of a <strong>Master's in CyberSecurity at Aalborg University Copenhagen</strong> (graduating June 25, 2026), deepening my expertise in network intrusion detection, vehicular network security, and privacy-preserving technologies — bridging reliable infrastructure with robust security.</p>
       <p>I hold a <strong>BSc in Computer Science &amp; IT from Tribhuwan University</strong> (Nepal) and am a <strong>Certified Kubernetes Administrator (CKA)</strong>. Outside work, I love outdoor sports, traveling to new places, trying local cuisines, and reading.</p>
     </div>
@@ -301,7 +309,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
         <div class="status-row"><span class="status-key">graduating</span><span class="status-val">June 25, 2026</span></div>
         <div class="status-row"><span class="status-key">thesis</span><span class="status-val">QEF for Zeek/Suricata/Snort</span></div>
         <div class="status-row"><span class="status-key">university</span><span class="status-val">Aalborg University CPH</span></div>
-        <div class="status-row"><span class="status-key">location</span><span class="status-val">Taastrup, Denmark</span></div>
+        <div class="status-row"><span class="status-key">location</span><span class="status-val">Lindehaven, Taastrup, Denmark</span></div>
         <div class="status-row"><span class="status-key">nationality</span><span class="status-val">Nepali</span></div>
         <div class="status-row"><span class="status-key">certified</span><span class="status-val">CKA (Kubernetes)</span></div>
         <div class="status-row"><span class="status-key">status</span><span class="status-val" style="color:var(--gn)">● Open to opportunities</span></div>
@@ -499,8 +507,21 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
   </div>
 </section>
 
-<footer><p>© 2026 Mohamod Sahil Ansari. Crafted with precision.</p><p>Taastrup, Copenhagen, Denmark 🇩🇰</p></footer>
+<footer><p>© 2026 Mohamod Sahil Ansari. Crafted with precision.</p><p>Lindehaven, Taastrup, Copenhagen, Denmark 🇩🇰</p><p><a href="#" id="ownerLoginLink" onclick="openLoginModal();return false;" class="owner-login-link">owner login</a></p></footer>
 <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<!-- OWNER LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header"><h2 id="loginModalTitle">Owner Login</h2><button class="modal-close" onclick="closeLoginModal()">×</button></div>
+    <div class="modal-body">
+      <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="username"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')ownerLogin()"></div>
+      <p id="loginError" style="color:#ef4444;font-family:var(--mono);font-size:.78rem;display:none"></p>
+    </div>
+    <div class="modal-footer"><button class="btn-cancel" onclick="closeLoginModal()">Cancel</button><button class="btn-publish" id="loginBtn" onclick="ownerLogin()">Log in</button></div>
+  </div>
+</div>
 
 <!-- Supabase loaded async so it never blocks the page -->
 <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -529,7 +550,7 @@ window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scro
 // ⚠️  REPLACE THESE WITH YOUR SUPABASE CREDENTIALS:
 const SUPABASE_URL='YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY='YOUR_SUPABASE_ANON_KEY';
-let sb=null,sbOk=false,posts=[],activeFilter='All';
+let sb=null,sbOk=false,posts=[],activeFilter='All',isOwner=false;
 
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
@@ -549,7 +570,7 @@ function initSB(){
   }
   // Wait for async script
   if(typeof window.supabase==='undefined'){setTimeout(initSB,200);return}
-  try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);sbOk=true;b.innerHTML='<div class="sb-banner">⚡ Connected to Supabase — articles persist in the cloud.</div>'}
+  try{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);sbOk=true;b.innerHTML='';restoreOwnerSession()}
   catch(e){b.innerHTML='<div class="sb-banner offline">⚠ Supabase connection failed — using local storage.</div>'}
   initReportSB();loadReports();
 }
@@ -604,6 +625,7 @@ function openArt(id){
 function closeArticle(){document.getElementById('articlePage').classList.remove('open');document.body.style.overflow='';document.getElementById('articleProgress').style.width='0'}
 
 function openModal(id){
+  if(!isOwner){toast('Owner login required',true);return}
   document.getElementById('postTitle').style.borderColor='';document.getElementById('postContent').style.borderColor='';
   if(id){const p=posts.find(x=>x.id===id);if(!p)return;document.getElementById('modalTitle').textContent='Edit Article';document.getElementById('editId').value=id;document.getElementById('postTitle').value=p.title;document.getElementById('postCategory').value=p.category;document.getElementById('postTags').value=(Array.isArray(p.tags)?p.tags:[]).join(', ');document.getElementById('postContent').value=p.content}
   else{document.getElementById('modalTitle').textContent='New Article';document.getElementById('editId').value='';document.getElementById('postTitle').value='';document.getElementById('postCategory').value='DevOps';document.getElementById('postTags').value='';document.getElementById('postContent').value=''}
@@ -619,9 +641,60 @@ async function publishPost(){
   if(sbOk)await loadPosts();else{buildFilters();renderPosts()}closeModal()}catch(e){console.error(e);toast('Failed to save',true)}btn.textContent='Publish';btn.disabled=false;
 }
 function editP(id){openModal(id)}
-async function delP(id){if(!confirm('Delete this article?'))return;try{await deleteP(id);toast('Deleted');buildFilters();renderPosts()}catch(e){toast('Failed to delete',true)}}
+async function delP(id){if(!isOwner){toast('Owner login required',true);return}if(!confirm('Delete this article?'))return;try{await deleteP(id);toast('Deleted');buildFilters();renderPosts()}catch(e){toast('Failed to delete',true)}}
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('articlePage').classList.contains('open'))closeArticle();else if(document.getElementById('reportModal').classList.contains('open'))closeReportModal();else closeModal()}});
+// ===== OWNER AUTH (Supabase Auth) =====
+// Only a signed-in owner sees Upload/New/Edit/Delete controls.
+// This is UI-level convenience — the real enforcement is the
+// auth.uid()-based RLS policies in Supabase (see the .sql file).
+async function restoreOwnerSession(){
+  if(!sbOk)return;
+  try{
+    const{data}=await sb.auth.getSession();
+    if(data&&data.session){isOwner=true;document.body.classList.add('owner-mode');updateOwnerUI()}
+  }catch(e){console.error(e)}
+}
+
+function updateOwnerUI(){
+  const link=document.getElementById('ownerLoginLink');
+  if(isOwner){link.textContent='log out';link.onclick=function(e){e.preventDefault();ownerLogout()}}
+  else{link.textContent='owner login';link.onclick=function(e){e.preventDefault();openLoginModal()}}
+}
+
+function openLoginModal(){
+  document.getElementById('loginEmail').value='';document.getElementById('loginPassword').value='';
+  document.getElementById('loginError').style.display='none';
+  document.getElementById('loginModal').classList.add('open');document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('loginEmail').focus(),100);
+}
+function closeLoginModal(){document.getElementById('loginModal').classList.remove('open');document.body.style.overflow=''}
+
+async function ownerLogin(){
+  if(!sbOk){toast('Supabase is not configured',true);return}
+  const email=document.getElementById('loginEmail').value.trim(),password=document.getElementById('loginPassword').value;
+  const errEl=document.getElementById('loginError'),btn=document.getElementById('loginBtn');
+  errEl.style.display='none';
+  if(!email||!password){errEl.textContent='Email and password are required.';errEl.style.display='block';return}
+  btn.textContent='Logging in...';btn.disabled=true;
+  try{
+    const{error}=await sb.auth.signInWithPassword({email,password});
+    if(error)throw error;
+    isOwner=true;document.body.classList.add('owner-mode');updateOwnerUI();
+    closeLoginModal();toast('Logged in as owner');
+    renderPosts();renderReports();
+  }catch(e){errEl.textContent=e.message||'Login failed';errEl.style.display='block'}
+  btn.textContent='Log in';btn.disabled=false;
+}
+
+async function ownerLogout(){
+  if(sbOk){try{await sb.auth.signOut()}catch(e){console.error(e)}}
+  isOwner=false;document.body.classList.remove('owner-mode');updateOwnerUI();
+  toast('Logged out');renderPosts();renderReports();
+}
+
+document.getElementById('loginModal').addEventListener('click',e=>{if(e.target===document.getElementById('loginModal'))closeLoginModal()});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(document.getElementById('articlePage').classList.contains('open'))closeArticle();else if(document.getElementById('reportModal').classList.contains('open'))closeReportModal();else if(document.getElementById('loginModal').classList.contains('open'))closeLoginModal();else closeModal()}});
 document.getElementById('blogModal').addEventListener('click',e=>{if(e.target===document.getElementById('blogModal'))closeModal()});
 
 function seedPosts(){return[
@@ -639,7 +712,7 @@ function fmtBytes(b){if(!b)return'';const u=['B','KB','MB','GB'];let i=0;while(b
 function initReportSB(){
   const b=document.getElementById('reportSbBanner');
   if(!sbOk){b.innerHTML='<div class="sb-banner offline">⚠ Supabase not configured — PDF upload requires cloud storage and is disabled in local mode.</div>';return}
-  b.innerHTML='<div class="sb-banner">⚡ Connected to Supabase — reports are stored in the cloud.</div>';
+  b.innerHTML='';
 }
 
 async function loadReports(){
@@ -665,6 +738,7 @@ function renderReports(){
 }
 
 function openReportModal(id){
+  if(!isOwner){toast('Owner login required',true);return}
   document.getElementById('reportTitle').style.borderColor='';document.getElementById('reportFile').style.borderColor='';
   if(id){const r=reports.find(x=>x.id===id);if(!r)return;document.getElementById('reportModalTitle').textContent='Edit Report';document.getElementById('reportEditId').value=id;document.getElementById('reportTitle').value=r.title;document.getElementById('reportCategory').value=r.category;document.getElementById('reportDesc').value=r.description||'';document.getElementById('reportFileHint').textContent='Max 25MB. Leave empty to keep the existing file.'}
   else{document.getElementById('reportModalTitle').textContent='Upload Report';document.getElementById('reportEditId').value='';document.getElementById('reportTitle').value='';document.getElementById('reportCategory').value='Thesis';document.getElementById('reportDesc').value='';document.getElementById('reportFileHint').textContent='Max 25MB. Uploading a new file replaces the existing one when editing.'}
@@ -706,6 +780,7 @@ async function publishReport(){
 
 function editReport(id){openReportModal(id)}
 async function delReport(id){
+  if(!isOwner){toast('Owner login required',true);return}
   if(!confirm('Delete this report? This also removes the PDF file from storage.'))return;
   try{
     const r=reports.find(x=>x.id===id);
@@ -717,7 +792,7 @@ async function delReport(id){
 
 document.getElementById('reportModal').addEventListener('click',e=>{if(e.target===document.getElementById('reportModal'))closeReportModal()});
 
-initSB();loadPosts();
+updateOwnerUI();initSB();loadPosts();
 </script>
 </body>
 </html>
