@@ -253,6 +253,18 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
 /* RESPONSIVE */
 @media(max-width:768px){nav{padding:.8rem 1.2rem}.nav-links{display:none}.hamburger{display:flex}section{padding:4rem 5vw}.about-grid,.contact-grid{grid-template-columns:1fr;gap:2rem}.hero-name{letter-spacing:-1.5px}.orb{width:200px;height:200px;right:-30px}.skills-grid{grid-template-columns:1fr 1fr}.edu-project{flex-direction:column;gap:.8rem}footer{flex-direction:column;gap:1rem;text-align:center}.terminal-body{font-size:.72rem;padding:1rem}.blog-grid{grid-template-columns:1fr}.article-topbar-title{display:none}.article-hero h1{font-size:1.5rem}.article-body{font-size:1rem}.modal-body{padding:1.5rem}.form-group textarea{min-height:220px}}
 @media(max-width:480px){.skills-grid{grid-template-columns:1fr}}
+.labs-cta,.labs-cta:visited,.labs-cta:active{color:inherit}
+.labs-cta{display:flex;align-items:center;gap:2rem;background:var(--bg2);border:1px solid var(--bdr);padding:2.5rem;text-decoration:none;transition:all .35s cubic-bezier(.23,1,.32,1);position:relative;overflow:hidden}
+.labs-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(34,211,238,.06),transparent 60%);opacity:0;transition:opacity .4s}
+.labs-cta:hover{border-color:var(--ac);transform:translateY(-3px);background:var(--bg3)}
+.labs-cta:hover::before{opacity:1}
+.labs-cta-icon{font-size:2.2rem;flex-shrink:0;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25)}
+.labs-cta-body h3{font-size:1.25rem;font-weight:700;margin-bottom:.5rem;color:var(--tx1)}
+.labs-cta-body p{color:var(--tx2);font-size:.92rem;line-height:1.6;margin-bottom:1rem;max-width:520px}
+.labs-cta-url{font-family:var(--mono);font-size:.82rem;color:var(--ac);display:inline-flex;align-items:center;gap:8px}
+.labs-cta-arrow{transition:transform .3s}
+.labs-cta:hover .labs-cta-arrow{transform:translateX(5px)}
+@media(max-width:600px){.labs-cta{flex-direction:column;align-items:flex-start;padding:2rem}}
 </style>
 </head>
 <body>
@@ -269,12 +281,13 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
     <li><a href="#certs">certs</a></li>
     <li><a href="#blog">blog</a></li>
     <li><a href="#reports">reports</a></li>
+    <li><a href="#labs">labs</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-nav" id="mobileNav">
-  <a href="#about">about</a><a href="#skills">skills</a><a href="#experience">experience</a><a href="#education">education</a><a href="#certs">certs</a><a href="#blog">blog</a><a href="#reports">reports</a><a href="#contact">contact</a>
+  <a href="#about">about</a><a href="#skills">skills</a><a href="#experience">experience</a><a href="#education">education</a><a href="#certs">certs</a><a href="#blog">blog</a><a href="#reports">reports</a><a href="#labs">labs</a><a href="#contact">contact</a>
 </div>
 
 <!-- HERO -->
@@ -297,7 +310,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
   <div class="section-header reveal"><p class="section-label">01 // About</p><h2 class="section-title">The Engineer Behind<br>the Infrastructure</h2></div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>I'm <strong>Mohamod Sahil Ansari</strong>, a DevOps Engineer currently based in <strong>Lindehaven, Taastrup, Copenhagen, Denmark</strong>. With over three years of hands-on experience at <strong>Khalti Pvt. Ltd.</strong> and <strong>Bent Ray Technologies</strong>, I've built fully automated CI/CD pipelines, managed Kubernetes clusters at scale, and provisioned cloud infrastructure using Terraform &amp; Terragrunt on AWS.</p>
+      <p>I'm <strong>Mohamod Sahil Ansari</strong>, a DevOps Engineer currently based in <strong>Hvidovre, Copenhagen, Denmark</strong>. With over three years of hands-on experience at <strong>Khalti Pvt. Ltd.</strong> and <strong>Bent Ray Technologies</strong>, I've built fully automated CI/CD pipelines, managed Kubernetes clusters at scale, and provisioned cloud infrastructure using Terraform &amp; Terragrunt on AWS.</p>
       <p>I'm in the final stage of a <strong>Master's in CyberSecurity at Aalborg University Copenhagen</strong> (graduating June 25, 2026), deepening my expertise in network intrusion detection, vehicular network security, and privacy-preserving technologies — bridging reliable infrastructure with robust security.</p>
       <p>I hold a <strong>BSc in Computer Science &amp; IT from Tribhuwan University</strong> (Nepal) and am a <strong>Certified Kubernetes Administrator (CKA)</strong>. Outside work, I love outdoor sports, traveling to new places, trying local cuisines, and reading.</p>
     </div>
@@ -309,7 +322,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
         <div class="status-row"><span class="status-key">graduating</span><span class="status-val">June 25, 2026</span></div>
         <div class="status-row"><span class="status-key">thesis</span><span class="status-val">QEF for Zeek/Suricata/Snort</span></div>
         <div class="status-row"><span class="status-key">university</span><span class="status-val">Aalborg University CPH</span></div>
-        <div class="status-row"><span class="status-key">location</span><span class="status-val">Lindehaven, Taastrup, Denmark</span></div>
+        <div class="status-row"><span class="status-key">location</span><span class="status-val">Hvidovre, Denmark</span></div>
         <div class="status-row"><span class="status-key">nationality</span><span class="status-val">Nepali</span></div>
         <div class="status-row"><span class="status-key">certified</span><span class="status-val">CKA (Kubernetes)</span></div>
         <div class="status-row"><span class="status-key">status</span><span class="status-val" style="color:var(--gn)">● Open to opportunities</span></div>
@@ -434,13 +447,26 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
     <div class="modal-body">
       <input type="hidden" id="reportEditId" value="">
       <div class="form-group"><label>Title</label><input type="text" id="reportTitle" placeholder="e.g. A Multi-Dimensional Quality Evaluation Framework for Open-Source IDS/IPS Tools"></div>
-      <div class="form-group"><label>Category</label><select id="reportCategory"><option>Thesis</option><option>Research Paper</option><option>Projects</option><option>Case Study</option><option>Report</option><option>Other</option></select></div>
+      <div class="form-group"><label>Category</label><select id="reportCategory"><option>Thesis</option><option>Research Paper</option><option>Whitepaper</option><option>Case Study</option><option>Report</option><option>Other</option></select></div>
       <div class="form-group"><label>Description</label><textarea id="reportDesc" placeholder="Short summary of the report/paper..." style="min-height:120px"></textarea></div>
       <div class="form-group"><label>PDF File</label><input type="file" id="reportFile" accept="application/pdf"><small id="reportFileHint">Max 25MB. Uploading a new file replaces the existing one when editing.</small></div>
     </div>
     <div class="modal-footer"><button class="btn-cancel" onclick="closeReportModal()">Cancel</button><button class="btn-publish" id="reportPublishBtn" onclick="publishReport()">Upload</button></div>
   </div>
 </div>
+
+<!-- LABS -->
+<section id="labs">
+  <div class="section-header reveal"><p class="section-label">09 // Labs</p><h2 class="section-title">Hands-On Labs</h2></div>
+  <a href="https://labs.mohamodsahilansari.com.np" target="_blank" rel="noopener" class="labs-cta reveal">
+    <div class="labs-cta-icon">⚡</div>
+    <div class="labs-cta-body">
+      <h3>Explore the Labs Archive</h3>
+      <p>Linux administration, DBA, DevOps, and CyberSecurity write-ups — hands-on labs hosted on their own dedicated site.</p>
+      <span class="labs-cta-url">labs.mohamodsahilansari.com.np <span class="labs-cta-arrow">→</span></span>
+    </div>
+  </a>
+</section>
 
 <!-- ARTICLE FULL PAGE -->
 <div class="article-page" id="articlePage">
@@ -497,7 +523,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-grid">
-    <div class="reveal"><div class="section-header"><p class="section-label">09 // Contact</p><h2 class="section-title">Let's Connect</h2></div><p style="color:var(--tx2);font-size:1.02rem;max-width:450px">I'm always open to discussing DevOps practices, cloud architecture, cybersecurity, or new opportunities. Feel free to reach out.</p></div>
+    <div class="reveal"><div class="section-header"><p class="section-label">10 // Contact</p><h2 class="section-title">Let's Connect</h2></div><p style="color:var(--tx2);font-size:1.02rem;max-width:450px">I'm always open to discussing DevOps practices, cloud architecture, cybersecurity, or new opportunities. Feel free to reach out.</p></div>
     <div class="contact-links reveal">
       <a href="mailto:me.sahilansari1@gmail.com" class="contact-link"><span class="link-icon">@</span>me.sahilansari1@gmail.com<span class="arrow">→</span></a>
       <a href="https://www.linkedin.com/in/sahil-ansari1/" target="_blank" rel="noopener" class="contact-link"><span class="link-icon">in</span>linkedin.com/in/sahil-ansari1<span class="arrow">→</span></a>
@@ -507,7 +533,7 @@ footer p{font-family:var(--mono);font-size:.8rem;color:var(--tx3)}
   </div>
 </section>
 
-<footer><p>© 2026 Mohamod Sahil Ansari. Crafted with precision.</p><p>Lindehaven, Taastrup, Copenhagen, Denmark 🇩🇰</p><p><a href="#" id="ownerLoginLink" onclick="openLoginModal();return false;" class="owner-login-link">owner login</a></p></footer>
+<footer><p>© 2026 Mohamod Sahil Ansari. Crafted with precision.</p><p>Hvidovre, Copenhagen, Denmark 🇩🇰</p><p><a href="#" id="ownerLoginLink" onclick="openLoginModal();return false;" class="owner-login-link">owner login</a></p></footer>
 <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
 <!-- OWNER LOGIN MODAL -->
